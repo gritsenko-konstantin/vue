@@ -19,8 +19,6 @@ function createFunction (code, errors) {
 }
 
 export function createCompileToFunctionFn (compile: Function): Function {
-  const cache = Object.create(null)
-
   return function compileToFunctions (
     template: string,
     options?: CompilerOptions,
@@ -46,14 +44,6 @@ export function createCompileToFunctionFn (compile: Function): Function {
           )
         }
       }
-    }
-
-    // check cache
-    const key = options.delimiters
-      ? String(options.delimiters) + template
-      : template
-    if (cache[key]) {
-      return cache[key]
     }
 
     // compile
@@ -109,6 +99,6 @@ export function createCompileToFunctionFn (compile: Function): Function {
       }
     }
 
-    return (cache[key] = res)
+    return res;
   }
 }
